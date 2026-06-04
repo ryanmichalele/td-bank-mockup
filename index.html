@@ -122,10 +122,13 @@
               </label>
               <button class="login-button" type="submit" id="login-btn" disabled>Log in</button>
               <a class="forgot-link" href="#">Forgot user name and/or password? <span>›</span></a>
+              <div class="open-acct-divider"></div>
+              <a class="open-acct-btn" href="open-account.html">Open an Account</a>
             </form>
           </div>
 
           <aside class="quick-links" aria-label="Online banking links">
+            <a href="open-account.html">Open an Account <span>&gt;</span></a>
             <a href="#">Sign up for Online Banking <span>&gt;</span></a>
             <a href="#">View the Online Banking demo <span>&gt;</span></a>
             <a href="#">Learn more about TD mobile banking <span>&gt;</span></a>
@@ -139,7 +142,7 @@
         <section class="promo">
           <div class="shell promo-inner">
             <p>Open a new savings account, earn $200 with qualifying activities. It's that easy</p>
-            <a href="#">Apply now</a>
+            <a href="open-account.html">Apply now</a>
           </div>
         </section>
       </section>
@@ -173,9 +176,20 @@
       <p class="copyright">(c) 2026 TD Bank, N.A. All Rights Reserved</p>
     </footer>
     <div class="bottom-space" aria-hidden="true"></div>
+    <div class="nav-overlay" id="nav-overlay"></div>
 
     <script>
     (function () {
+      /* ── hamburger mobile nav ── */
+      var hamburger = document.querySelector('.hamburger');
+      var overlay   = document.getElementById('nav-overlay');
+      function closeNav() { document.body.classList.remove('mobile-nav-open'); }
+      hamburger.addEventListener('click', function () {
+        document.body.classList.toggle('mobile-nav-open');
+      });
+      overlay.addEventListener('click', closeNav);
+
+
       var form      = document.getElementById('login-form');
       var userEl    = document.getElementById('username');
       var passEl    = document.getElementById('password');
@@ -217,9 +231,8 @@
         loginBtn.textContent = 'Signing in…';
         loginBtn.disabled = true;
         setTimeout(function () {
-          loginBtn.textContent = 'Log in';
-          syncButton();
-        }, 1500);
+          window.location.href = 'dashboard.html';
+        }, 1200);
       });
     })();
     </script>
