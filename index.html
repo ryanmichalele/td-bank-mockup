@@ -103,10 +103,6 @@
               <label for="username">
                 <input type="text" id="username" placeholder="User name" autocomplete="username">
               </label>
-              <div class="field-error" id="username-error" role="alert" hidden>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="#c00000" stroke-width="1.5"/><line x1="8" y1="5" x2="8" y2="9" stroke="#c00000" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11.5" r=".85" fill="#c00000"/></svg>
-                Oops, don't forget to enter your user name.
-              </div>
               <label for="password">
                 <div class="password-wrap">
                   <input type="password" id="password" placeholder="Password" autocomplete="current-password">
@@ -197,24 +193,13 @@
       var eyeOpen   = document.getElementById('eye-open');
       var eyeClosed = document.getElementById('eye-closed');
       var loginBtn  = document.getElementById('login-btn');
-      var errorEl   = document.getElementById('username-error');
 
       function syncButton() {
         loginBtn.disabled = !(userEl.value.trim() && passEl.value);
       }
 
-      function validateUser() {
-        var empty = !userEl.value.trim();
-        userEl.classList.toggle('input-error', empty);
-        errorEl.hidden = !empty;
-      }
-
-      userEl.addEventListener('input', function () {
-        syncButton();
-        if (!errorEl.hidden) validateUser();
-      });
+      userEl.addEventListener('input', syncButton);
       passEl.addEventListener('input', syncButton);
-      userEl.addEventListener('blur', validateUser);
 
       eyeBtn.addEventListener('click', function () {
         var show = passEl.type === 'password';
@@ -226,7 +211,6 @@
 
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-        validateUser();
         if (!userEl.value.trim()) return;
         loginBtn.textContent = 'Signing in…';
         loginBtn.disabled = true;
